@@ -40,7 +40,7 @@ start = time.time()
 for i2, s2 in enumerate(overlaps.coords['s2'].values):
     for i1, s1 in enumerate(overlaps.coords['s1'].values):
         if i1 >= i2:
-            overlaps.loc[s2, s1] = searchlight1_opt(data[s2], data[s1], focus)
+            overlaps.loc[s2, s1] = searchlight(data[s2], data[s1], focus)
         else:
             overlaps.loc[s2, s1] = overlaps.loc[s1, s2]
 print 'Time to compute overlaps:', time.time() - start, 's'
