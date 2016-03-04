@@ -54,6 +54,9 @@ for i2, s2 in enumerate(overlaps.coords['s2'].values):
         similarities.loc[s2, s1] = ((overlaps.loc[s1, s2] * overlaps.loc[s2, s1]) /
                                     (overlaps.loc[s1, s1] * overlaps.loc[s2, s2]))
 
+ds = similarities.to_dataset(name='similarities')
+ds.to_netcdf('OUTPUT/similarities.nc', format='NETCDF4')
+
 sim_plot = similarities.copy()
 sim_plot.coords['s1'] = range(n_sets)
 sim_plot.coords['s2'] = range(n_sets)
