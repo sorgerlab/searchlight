@@ -38,10 +38,10 @@ start = time.time()
 for i2, s2 in enumerate(overlaps.coords['s2'].values):
     for i1, s1 in enumerate(overlaps.coords['s1'].values):
         if i1 >= i2:
-            print '> %s:%s (%d x %d)' % (s2, s1, len(plate_data[s2]),
+            print '%s,%s (%d x %d)' % (s2, s1, len(plate_data[s2]),
                                            len(plate_data[s1]))
-            overlaps.loc[s2, s1] = searchlight1(plate_data[s2], plate_data[s1],
-                                                focus)
+            overlaps.loc[s2, s1] = searchlight(plate_data[s2], plate_data[s1],
+                                               focus)
         else:
             overlaps.loc[s2, s1] = overlaps.loc[s1, s2]
 print 'Time to compute overlaps:', time.time() - start, 's'
