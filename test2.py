@@ -1,3 +1,4 @@
+import os
 import time
 import collections
 import itertools
@@ -6,6 +7,8 @@ import xarray as xr
 import matplotlib.pyplot as plt
 from searchlight import *
 
+
+os.chdir(os.path.dirname(__file__))
 
 # The one parameter to the algorithm.
 focus_factor = 1.5
@@ -23,8 +26,8 @@ treated_wells = ['%s%02d' % t for t in itertools.product('C', range(2,12))]
 plate_data = {}
 start = time.time()
 for well in untreated_wells + treated_wells:
-    plate_data[well] = np.loadtxt('INPUT/%s.csv' % well, delimiter=',',
-                                  skiprows=1, usecols=cols)
+    plate_data[well] = np.loadtxt('INPUT/INPUT HOECHST ON/%s.csv' % well,
+                                  delimiter=',', skiprows=1, usecols=cols)
 untreated_std = np.vstack([plate_data[w] for w in untreated_wells]).std(axis=0)
 focus = untreated_std * focus_factor
 print 'Time to load data:', time.time() - start, 's'
