@@ -20,8 +20,7 @@ cols = np.array([
         33, 34, 35, 36, 37, 38, 39, 40, 41, 42]) - 1
 
 untreated_wells = ['B%02d' % i for i in range(2,12)]
-#treated_wells = ['%s%02d' % t for t in itertools.product('CDEFG', range(2,12))]
-treated_wells = ['%s%02d' % t for t in itertools.product('C', range(2,12))]
+treated_wells = ['%s%02d' % t for t in itertools.product('CDEFG', range(2,12))]
 
 plate_data = {}
 start = time.time()
