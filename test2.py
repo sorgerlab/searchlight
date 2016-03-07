@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from searchlight import *
 
 
-os.chdir(os.path.dirname(__file__))
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 # The one parameter to the algorithm.
 focus_factor = 1.5
