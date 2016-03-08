@@ -1,13 +1,16 @@
 import os
+import sys
 import csv
 import numpy as np
 import xarray as xr
 import matplotlib.pyplot as plt
 
 
+basename = sys.argv[1]
+
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
-ds = xr.open_dataset('OUTPUT/similarities.nc')
+ds = xr.open_dataset('OUTPUT/%s.nc' % basename)
 similarities = ds['similarities']
 n_sets = len(similarities.s1)
 
@@ -50,12 +53,12 @@ def savefig():
 
 keys = (map(str.upper,dose_units), agents, doses)
 fig = plot()
-filename = 'OUTPUT/sim_full_by_agent.png'
+filename = 'OUTPUT/%s_by_agent.png' % basename
 savefig()
 plt.close(fig)
 
 keys = (keys[2], keys[0], keys[1])
 fig = plot()
-filename = 'OUTPUT/sim_full_by_dose.png'
+filename = filename.replace('by_agent', 'by_dose')
 savefig()
 plt.close(fig)

@@ -7,7 +7,6 @@ import collections
 import itertools
 import numpy as np
 import xarray as xr
-import matplotlib.pyplot as plt
 from searchlight import *
 
 
@@ -20,10 +19,11 @@ else:
     # Convert to float for numeric use.
     focus_factor = float(sys.argv[1])
 
-# If true, only run 4 samples (short runtime for testing).
-testing_mode = False
-if len(sys.argv) == 3 and sys.argv[2] == 'test':
-    testing_mode = True
+# If non-zero, only run 4 (1) samples or 20 (2) samples, to allow a short
+# runtime for testing.
+testing_mode = 0
+if len(sys.argv) == 3 and sys.argv[2] in ('1', '2'):
+    testing_mode = int(sys.argv[2])
     ff_str += '_test'
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -36,13 +36,18 @@ cols = np.array([
 
 well_cols = range(2, 12)
 well_rows_treated = 'CDEFG'
-if testing_mode:
+if testing_mode == 1:
     well_cols = well_cols[:2]
-    well_rows_treated = well_rows_treated[:2]
+    well_rows_treated = well_rows_treated[:1]
+elif testing_mode == 2:
+    well_rows_treated = well_rows_treated[:1]
 
 untreated_wells = ['B%02d' % i for i in well_cols]
 treated_wells = ['%s%02d' % t for t in
                  itertools.product(well_rows_treated, well_cols)]
+
+print 'Untreated wells:', untreated_wells
+print 'Treated wells:', treated_wells
 
 plate_data = {}
 start = time.time()
