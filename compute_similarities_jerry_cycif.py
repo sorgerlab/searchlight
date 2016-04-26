@@ -11,7 +11,7 @@ from searchlight import *
 
 
 if len(sys.argv) < 2:
-    print "Usage: test3.py <focus_factor> [test]"
+    print "Usage: compute_similarities_jerry_cycif.py <focus_factor> [test]"
     sys.exit(1)
 else:
     # Take exact string for use in filenames, etc.
@@ -30,8 +30,9 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 # List of columns (cell feature dimensions) directly from Adam's code. Subtract
 # 1 to convert from 1-based to 0-based indexing.
+# 2016/04/26 Also removed column 6 (Actin555) per Nienke's request.
 cols = np.array([
-        6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
+        7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
         33, 34, 35, 36, 37, 38, 39, 40, 41, 42]) - 1
 
 well_cols = range(2, 12)
