@@ -47,9 +47,6 @@ def plot():
 def savefig():
     print "Writing", filename
     fig.savefig(filename)
-    filename2 = filename.replace('png', 'pdf')
-    print "Writing", filename2
-    fig.savefig(filename2)
 
 keys = (map(str.upper,dose_units), agents, doses)
 fig = plot()
