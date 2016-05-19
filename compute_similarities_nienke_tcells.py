@@ -33,7 +33,7 @@ paths = [os.path.join(d, f) for d in dirs for f in os.listdir(d)
 
 if testing_mode:
     num_samples = 4 if testing_mode == 1 else 20
-    paths = paths[:num_samples]
+    paths = sorted(paths)[:num_samples]
 
 data = collections.OrderedDict()
 start = time.time()
