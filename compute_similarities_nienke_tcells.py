@@ -48,9 +48,6 @@ n_sets = len(data)
 keys = sorted(data.keys())
 overlaps = xr.DataArray(np.zeros((n_sets,n_sets)), {'s1': keys, 's2': keys})
 
-print "keys:"
-print ', '.join(keys)
-
 start = time.time()
 for i2, s2 in enumerate(overlaps.coords['s2'].values):
     for i1, s1 in enumerate(overlaps.coords['s1'].values):
