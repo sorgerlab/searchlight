@@ -1,32 +1,20 @@
 import os
-import sys
-import csv
 import numpy as np
 import xarray as xr
 import matplotlib.pyplot as plt
 
-
-data_path = sys.argv[1]
-
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
+data_path = 'OUTPUT/Nienke_tcells_flow/similarities.nc'
 ds = xr.open_dataset(data_path)
-similarities = ds['similarities']
-n_sets = len(similarities.s1)
+s = ds['similarities']
 
-labels = similarities.s1.values
+#s = s.fillna(-1)
+
 
 def plot():
-    sim_plot = similarities.copy()
-    sim_plot.coords['s1'] = range(n_sets)
-    sim_plot.coords['s2'] = range(n_sets)
-    sim_plot.plot(x='s1', y='s2', vmin=0, vmax=1)
+    s.plot()
     ax = plt.gca()
-    ax.set_xticks(range(n_sets))
-    ax.set_yticks(range(n_sets))
-    ax.set_xticklabels(labels, size=8, fontname='monospace',
-                       rotation='vertical')
-    ax.set_yticklabels(labels, size=8, fontname='monospace')
     ax.set_title('Searchlight similarity')
     ax.set_aspect('equal')
     plt.subplots_adjust(bottom=0.2, top=0.95, left=0.20, right=1)
