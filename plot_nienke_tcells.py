@@ -22,6 +22,12 @@ def plot():
     fig.set_size_inches(9, 9)
     return fig
 
+def reset_dims(da):
+    da = da.copy()
+    for dim in da.dims:
+        da[dim] = range(len(da[dim]))
+    return da
+
 fig = plot()
 image_path = data_path.replace('.nc', '.png')
 print "Writing", image_path
