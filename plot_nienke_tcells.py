@@ -22,9 +22,11 @@ def plot():
     fig.set_size_inches(9, 9)
     return fig
 
-def reset_dims(da):
+def reset_dims(da, dims=None):
     da = da.copy()
-    for dim in da.dims:
+    if dims is None:
+        dims = da.dims
+    for dim in dims:
         da[dim] = range(len(da[dim]))
     return da
 
