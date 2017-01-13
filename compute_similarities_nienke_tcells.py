@@ -60,12 +60,14 @@ for i2, s2 in enumerate(overlaps.coords['s2'].values):
             overlaps.loc[s2, s1] = overlaps.loc[s1, s2]
 print 'Time to compute overlaps:', time.time() - start, 's'
 
-similarities = overlaps.copy()
-for i2, s2 in enumerate(overlaps.coords['s2'].values):
-    for i1, s1 in enumerate(overlaps.coords['s1'].values):
-        similarities.loc[s2, s1] = ((overlaps.loc[s1, s2] * overlaps.loc[s2, s1]) /
-                                    (overlaps.loc[s1, s1] * overlaps.loc[s2, s2]))
+similarities = xr.DataArray(np.empty_like(overlaps), coords=overlaps.coords)
+diag = np.diag(overlaps)
+for y in range(overlaps.shape[0]):
+    # This is a vectorized version of the similarity calculation that computes
+    # an entire row at a time.
+    similarities[y, :] = ((overlaps[y, :] * overlaps[:, y].values) /
+                          (diag * diag[y]))
 
 ds = similarities.to_dataset(name='similarities')
-output_path = 'OUTPUT/Nienke_tcells_flow/similarities_tcon_sample%s.nc' % testing_str
+output_path = 'OUTPUT/Nienke_tcells_flow/similarities%s.nc' % testing_str
 ds.to_netcdf(output_path, format='NETCDF4')
