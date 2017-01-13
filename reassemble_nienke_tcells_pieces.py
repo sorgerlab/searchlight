@@ -60,6 +60,9 @@ compounds['compound_concentration'] = design.Concentration
 
 # Join the sample info with the compound info to create one master table.
 metadata_df = samples.join(compounds, on=index_columns)
+# Prefix 'P' to plate numbers to avoid having a 1-char variable type which some
+# netcdf libraries (e.g. R's ncdf4) don't handle too well.
+metadata_df.plate = 'P' + metadata_df.plate
 metadata = xr.Dataset.from_dataframe(metadata_df)
 
 # Swap out old kx and ky dims for integer-numbered x and y.
